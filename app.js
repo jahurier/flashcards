@@ -521,13 +521,13 @@ function renderEdit(id) {
             const long = ta.value;
             ta.disabled = true;
             try {
-              const r = await fetch("https://is.gd/create.php?format=simple&url=" + encodeURIComponent(long));
+              const r = await fetch("https://tinyurl.com/api-create.php?url=" + encodeURIComponent(long));
               const text = (await r.text()).trim();
               if (!r.ok || !text.startsWith("http")) throw new Error(text || "shortener failed");
               ta.value = text;
               toast("Shortened to " + text.length + " chars");
             } catch (e) {
-              toast("Couldn't shorten — paste into tinyurl.com instead");
+              toast("Couldn't shorten — link still works as-is");
             } finally {
               ta.disabled = false;
             }
