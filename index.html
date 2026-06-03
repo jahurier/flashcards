@@ -57,14 +57,15 @@
       <button class="btn ghost wide" data-action="addCard">+ Add card</button>
 
       <details class="csv-panel">
-        <summary>Import from CSV / text or file</summary>
-        <p class="hint">One card per line. Separate front and back with a tab, comma, or <code> | </code>.</p>
+        <summary>Add more cards from text or a file</summary>
+        <p class="hint">One card per line. Separate front and back with a tab, comma, or <code> | </code>. Paste below, or load a <code>.csv</code> / <code>.txt</code> file.</p>
         <textarea id="csvInput" placeholder="capital of France | Paris&#10;largest planet | Jupiter"></textarea>
         <div class="csv-actions">
-          <button class="btn small" data-action="csvAppend">Append</button>
-          <button class="btn small ghost" data-action="csvReplace">Replace all</button>
-          <label class="btn small ghost" for="editFile" style="margin-left:auto;">Load file…</label>
+          <label class="btn small ghost" for="editFile">Load file…</label>
           <input id="editFile" type="file" accept=".csv,.tsv,.txt" hidden />
+          <span style="flex:1;"></span>
+          <button class="btn small danger" data-action="csvReplace" title="Delete every existing card and use only the new ones">Replace deck</button>
+          <button class="btn small primary" data-action="csvAppend" title="Keep existing cards and add the new ones on top">Add to deck</button>
         </div>
       </details>
 
