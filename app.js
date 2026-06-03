@@ -516,8 +516,25 @@ function renderEdit(id) {
              <p style="font-size:12px;color:var(--ink-faint);margin:8px 0 0;">Length: ${url.length.toLocaleString()} characters${url.length > 6000 ? " — some chat apps may truncate very long links." : ""}</p>`,
       actions: [
         { label: "Close", onClick: closeModal },
+        { label: "Shorten", onClick: async () => {
+            const ta = document.getElementById("modalShare");
+            const long = ta.value;
+            ta.disabled = true;
+            try {
+              const r = await fetch("https://is.gd/create.php?format=simple&url=" + encodeURIComponent(long));
+              const text = (await r.text()).trim();
+              if (!r.ok || !text.startsWith("http")) throw new Error(text || "shortener failed");
+              ta.value = text;
+              toast("Shortened to " + text.length + " chars");
+            } catch (e) {
+              toast("Couldn't shorten — paste into tinyurl.com instead");
+            } finally {
+              ta.disabled = false;
+            }
+        }},
         { label: "Copy link", primary: true, onClick: async () => {
-            try { await navigator.clipboard.writeText(url); toast("Link copied"); }
+            const ta = document.getElementById("modalShare");
+            try { await navigator.clipboard.writeText(ta.value); toast("Link copied"); }
             catch { toast("Copy failed — select and copy manually"); }
         }},
       ],
