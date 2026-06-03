@@ -91,6 +91,11 @@ body {
   text-transform: uppercase;
   font-size: 13px;
 }
+.caption {
+  margin: -4px 0 14px;
+  color: var(--ink-faint);
+  font-size: 13px;
+}
 
 .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
 
