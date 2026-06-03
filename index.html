@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f1e7" />
+  <title>Flashcards</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button class="link-btn" id="homeBtn" aria-label="Home">
+      <span class="logo">◐</span> <span class="logo-text">Flashcards</span>
+    </button>
+    <div class="topbar-right" id="topbarRight"></div>
+  </header>
+
+  <main id="view"></main>
+
+  <!-- Templates -->
+  <template id="tpl-home">
+    <section class="container">
+      <h1 class="display">Study anything,<br/>share with a link.</h1>
+      <p class="lede">No accounts. No fees. Decks live in the link itself — paste a URL, get a deck.</p>
+
+      <div class="actions">
+        <button class="btn primary" data-action="new">+ New deck</button>
+        <label class="btn" for="homeFile">Upload file</label>
+        <input id="homeFile" type="file" accept=".csv,.tsv,.txt" hidden />
+        <button class="btn" data-action="import">Paste CSV</button>
+        <button class="btn" data-action="paste">Paste shared link</button>
+      </div>
+
+      <h2 class="section-title">Your decks</h2>
+      <div id="deckList" class="deck-list"></div>
+
+      <h2 class="section-title">Try a sample</h2>
+      <div id="sampleList" class="deck-list"></div>
+    </section>
+  </template>
+
+  <template id="tpl-edit">
+    <section class="container">
+      <div class="edit-header">
+        <input id="deckName" class="title-input" placeholder="Untitled deck" />
+        <div class="edit-actions">
+          <button class="btn" data-action="study">Study →</button>
+          <button class="btn" data-action="share">Share</button>
+        </div>
+      </div>
+      <p class="meta" id="deckMeta"></p>
+
+      <div id="cardEditor" class="card-editor"></div>
+      <button class="btn ghost wide" data-action="addCard">+ Add card</button>
+
+      <details class="csv-panel">
+        <summary>Import from CSV / text or file</summary>
+        <p class="hint">One card per line. Separate front and back with a tab, comma, or <code> | </code>.</p>
+        <textarea id="csvInput" placeholder="capital of France | Paris&#10;largest planet | Jupiter"></textarea>
+        <div class="csv-actions">
+          <button class="btn small" data-action="csvAppend">Append</button>
+          <button class="btn small ghost" data-action="csvReplace">Replace all</button>
+          <label class="btn small ghost" for="editFile" style="margin-left:auto;">Load file…</label>
+          <input id="editFile" type="file" accept=".csv,.tsv,.txt" hidden />
+        </div>
+      </details>
+
+      <div class="danger-zone">
+        <button class="btn danger" data-action="delete">Delete deck</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-study">
+    <section class="container study">
+      <div class="study-nav">
+        <button class="link-btn" data-action="exit">← Back</button>
+        <button class="link-btn" data-action="help" aria-label="How rating works">?</button>
+      </div>
+      <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      <p class="study-stats" id="studyStats"></p>
+
+      <div class="card" id="flashcard" tabindex="0" role="button" aria-label="Flip card">
+        <div class="card-face front" id="cardFront"></div>
+        <div class="card-face back" id="cardBack" hidden></div>
+        <div class="card-hint" id="cardHint">tap to flip</div>
+      </div>
+
+      <div class="rate-row" id="rateRow" hidden>
+        <button class="btn rate again" data-rate="again">
+          <span class="rate-label">Again</span>
+          <span class="rate-sub" data-interval="again"></span>
+        </button>
+        <button class="btn rate hard" data-rate="hard">
+          <span class="rate-label">Hard</span>
+          <span class="rate-sub" data-interval="hard"></span>
+        </button>
+        <button class="btn rate good" data-rate="good">
+          <span class="rate-label">Good</span>
+          <span class="rate-sub" data-interval="good"></span>
+        </button>
+        <button class="btn rate easy" data-rate="easy">
+          <span class="rate-label">Easy</span>
+          <span class="rate-sub" data-interval="easy"></span>
+        </button>
+      </div>
+
+      <div class="done-panel" id="donePanel" hidden>
+        <h2>Session complete</h2>
+        <p id="doneSummary"></p>
+        <button class="btn primary" data-action="restart">Study again</button>
+        <button class="btn" data-action="back">Back to deck</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-import">
+    <section class="container">
+      <h1 class="display small">Import deck</h1>
+      <p class="lede" id="importPreview"></p>
+      <div class="actions">
+        <button class="btn primary" data-action="save">Save to my decks</button>
+        <button class="btn" data-action="studyOnce">Study without saving</button>
+        <button class="btn ghost" data-action="cancel">Cancel</button>
+      </div>
+    </section>
+  </template>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <h3 id="modalTitle"></h3>
+      <div id="modalBody"></div>
+      <div class="modal-actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
