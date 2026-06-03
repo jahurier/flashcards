@@ -432,6 +432,25 @@ code { background: var(--bg); padding: 1px 5px; border-radius: 4px; font-size: 1
   margin-top: 16px;
 }
 
+.site-foot {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  text-align: center;
+  border-top: 1px solid var(--rule);
+  margin-top: 40px;
+  padding-top: 24px;
+}
+.site-foot p {
+  font-size: 13px;
+  color: var(--ink-faint);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.site-foot strong { color: var(--ink-soft); }
+
 .toast {
   position: fixed;
   bottom: 24px;
