@@ -380,6 +380,39 @@ function renderHome() {
     }
   });
 
+  viewEl.querySelector('[data-action="ai"]').onclick = () => {
+    const promptText = `Make me 20 flashcards on [TOPIC].
+Output format: one card per line.
+Put the question (front) and answer (back) on the same line, separated by " | " (space-pipe-space).
+No numbering, no headers, no markdown, no extra commentary.
+
+Example output:
+What is photosynthesis? | The process by which plants convert sunlight into chemical energy.
+Define mitochondria | Organelles in cells that produce ATP energy.
+Year the US Constitution was signed | 1787`;
+    openModal({
+      title: "Make cards with AI",
+      body: `<p style="color:var(--ink-soft);font-size:14px;margin:0 0 10px;">
+               Paste this prompt into <strong>ChatGPT</strong>, <strong>Claude</strong>, <strong>Gemini</strong>, or any AI chatbot.
+               Replace <code>[TOPIC]</code> with what you want to study.
+             </p>
+             <textarea id="aiPrompt" readonly style="min-height:160px;font-family:ui-monospace,Menlo,monospace;font-size:13px;"></textarea>
+             <ol style="color:var(--ink-soft);font-size:13px;line-height:1.7;margin:12px 0 0;padding-left:20px;">
+               <li>Copy the prompt above and send it to your AI.</li>
+               <li>Copy the AI's reply.</li>
+               <li>Come back here and click <strong>Paste CSV</strong> — or save the reply as a <code>.txt</code> file and use <strong>Upload file</strong>.</li>
+             </ol>`,
+      actions: [
+        { label: "Close", onClick: closeModal },
+        { label: "Copy prompt", primary: true, onClick: async () => {
+            try { await navigator.clipboard.writeText(promptText); toast("Prompt copied"); }
+            catch { toast("Copy failed — select and copy manually"); }
+        }},
+      ],
+      onShow: () => { document.getElementById("aiPrompt").value = promptText; },
+    });
+  };
+
   viewEl.querySelector('[data-action="paste"]').onclick = () => {
     openModal({
       title: "Paste a shared link",

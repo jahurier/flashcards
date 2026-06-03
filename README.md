@@ -4,6 +4,7 @@ A free, no-account flashcard site for classmates. Decks live inside the share li
 
 - **SRS (spaced repetition)** — SM-2 lite scheduler, just like Anki
 - **CSV / text import** — paste rows separated by tab, comma, or `|`
+- **Make with AI** — built-in prompt template for ChatGPT / Claude / Gemini
 - **Share via link** — deck is gzipped and base64-encoded into the URL
 - **Mobile-friendly** — large tap targets, responsive layout, dark mode
 - **Local-first** — your decks stay in your browser (localStorage)
